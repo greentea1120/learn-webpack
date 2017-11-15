@@ -1,2 +1,4 @@
-// document.getElementById('title').innerHTML = 'hello webpack';
-console.log('1122221');
+import css from './css/index.css';
+// document.getElementById("title").innerHTML = "hello webpack";
+
+console.log('adddsdfsdfssssssssssdaa');
