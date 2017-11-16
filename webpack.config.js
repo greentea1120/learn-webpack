@@ -1,7 +1,9 @@
 const path = require('path');
+const glob = require('glob');
 const uglifyPlugin = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
+const purifyCssPlugin = require('purifycss-webpack');
 
 var website = {
     publicPath:"http://localhost:9898/"
@@ -21,7 +23,10 @@ module.exports = {
                 test:/\.css$/,
                 use: extractTextPlugin.extract({
                     fallback:"style-loader",
-                    use:"css-loader"
+                    use:[
+                        {loader:'css-loader',options:{importLoaders:1}},
+                        'postcss-loader'
+                    ]
                 })
             },
             {
@@ -42,10 +47,10 @@ module.exports = {
                 test:/\.less$/,
                 use: extractTextPlugin.extract({
                     use:[{
-                        loader:"css-loader"
+                        loader:"css-loader",options:{importLoaders:1}
                     },{
                         loader:"less-loader"
-                    }],
+                    },'postcss-loader'],
                     fallback:"style-loader"
                 })
             },
@@ -59,6 +64,13 @@ module.exports = {
                     }],
                     fallback:"style-loader"
                 })
+            },
+            {
+                test:/\.js$/,
+                use:{
+                    loader:"babel-loader",
+                },
+                exclude:/node_modules/
             }
         ]
     },
@@ -71,7 +83,10 @@ module.exports = {
             hash:true,
             template:'./src/index.html'
         }),
-        new extractTextPlugin("css/index.css")
+        new extractTextPlugin("css/index.css"),
+        new purifyCssPlugin({
+            paths:glob.sync(path.join(__dirname,'src/*.html'))
+        })
     ],
     devServer : {
         //设置基本目录结构

@@ -6,4 +6,5 @@ body{
     background: url('../images/person.jpg') 0 0 no-repeat;
     width: 100px;
     height: 150px;
+    transform: translate(200px,200px);
 }
