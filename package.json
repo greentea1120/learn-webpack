@@ -4,8 +4,10 @@
   "description": "learn webpack",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack"
+    "dev": "set type=dev&webpack-dev-server",
+    "build": "set type=build&webpack",
+    "dev_mac": "export type=dev&&webpack-dev-server",
+    "build_mac": "export type=build&&webpack"
   },
   "author": "greentea",
   "license": "ISC",

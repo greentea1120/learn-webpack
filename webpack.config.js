@@ -5,8 +5,16 @@ const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const purifyCssPlugin = require('purifycss-webpack');
 
-var website = {
-    publicPath:"http://localhost:9898/"
+if(process.env.type== "dev"){
+    var website={
+        publicPath:"http://localhost:9898/"
+    }
+    console.log( encodeURIComponent(process.env.type) );
+}else{
+    var website={
+        publicPath:"http://www.guoqianchen.com/"
+    }
+    console.log( encodeURIComponent(process.env.type) );
 }
 module.exports = {
     entry : {
